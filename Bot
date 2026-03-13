@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>BOT Panel</title>
+
+<style>
+body{
+background:#05121c;
+font-family:Arial;
+color:white;
+display:flex;
+justify-content:center;
+padding:20px;
+}
+
+.panel{
+width:380px;
+background:#071a2b;
+border-radius:16px;
+padding:20px;
+border:2px solid #00c8ff;
+box-shadow:0 0 25px rgba(0,200,255,0.6);
+}
+
+.header{
+text-align:center;
+}
+
+.header h2{
+color:#00d4ff;
+}
+
+.section{
+margin-top:18px;
+}
+
+.title{
+color:#3bd6ff;
+font-weight:bold;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:6px;
+border-radius:8px;
+border:none;
+}
+
+button{
+margin-top:8px;
+padding:10px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+.start{
+background:#00d084;
+width:48%;
+}
+
+.stop{
+background:#ff4b4b;
+color:white;
+width:48%;
+}
+
+.send{
+background:#00c8ff;
+width:100%;
+}
+
+.friend{
+background:#03111d;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+display:flex;
+justify-content:space-between;
+}
+
+.delete{
+background:red;
+color:white;
+padding:6px;
+border-radius:6px;
+}
+
+.login{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.box{
+background:#071a2b;
+padding:20px;
+border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login" id="login">
+<div class="box">
+<h3>تسجيل الدخول</h3>
+<input type="password" id="pass" placeholder="كلمة السر">
+<button onclick="login()">دخول</button>
+<p id="msg"></p>
+</div>
+</div>
+
+<div class="panel">
+
+<div class="header">
+<h2>BOT-King-Dz</h2>
+<p>ID:14022489056</p>
+</div>
+
+<div class="section">
+<div class="title">التحكم في البوت</div>
+
+<div style="display:flex;justify-content:space-between;">
+<button class="start" onclick="startBot()">تشغيل</button>
+<button class="stop" onclick="stopBot()">إيقاف</button>
+</div>
+
+<p id="status">الحالة: متوقف</p>
+</div>
+
+<div class="section">
+<div class="title">إضافة صديق</div>
+<input id="friendId" placeholder="ID اللاعب">
+<button class="send" onclick="addFriend()">إضافة</button>
+</div>
+
+<div class="section">
+<div class="title">قائمة الأصدقاء</div>
+<div id="friends"></div>
+</div>
+
+</div>
+
+<script>
+
+const PASSWORD="1234"
+
+let friends=[]
+
+function login(){
+
+let p=document.getElementById("pass").value
+
+if(p===PASSWORD){
+
+document.getElementById("login").style.display="none"
+
+}else{
+
+document.getElementById("msg").innerText="كلمة السر خطأ"
+
+}
+
+}
+
+function startBot(){
+
+document.getElementById("status").innerText="الحالة: يعمل"
+
+}
+
+function stopBot(){
+
+document.getElementById("status").innerText="الحالة: متوقف"
+
+}
+
+function addFriend(){
+
+let id=document.getElementById("friendId").value
+
+if(!id)return
+
+friends.push(id)
+
+render()
+
+}
+
+function render(){
+
+let box=document.getElementById("friends")
+
+box.innerHTML=""
+
+friends.forEach((f,i)=>{
+
+let div=document.createElement("div")
+
+div.className="friend"
+
+div.innerHTML=f+' <button class="delete" onclick="del('+i+')">حذف</button>'
+
+box.appendChild(div)
+
+})
+
+}
+
+function del(i){
+
+friends.splice(i,1)
+
+render()
+
+}
+
+</script>
+
+</body>
+</html>
